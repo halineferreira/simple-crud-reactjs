@@ -17,11 +17,12 @@ class AddEmployee extends Component {
               nome: this.refs.nome.value,
               email: this.refs.email.value
             }}, function(){ 
-                // console.log(this.state)
+                //console.log(this.state)
+                //console.log(this.props);
                 this.props.AddEmployee(this.state.newEmployee);
             });
       }
-    console.log(this.refs.nome.value);
+    //console.log(this.refs.nome.value);
     e.preventDefault();
   }
   render() {

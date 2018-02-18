@@ -1,23 +1,12 @@
 import React, { Component } from 'react';
-import EmployeeItem from './EmployeeItem';
+//import EmployeeItem from './EmployeeItem';
 
 class Employees extends Component {
   deleteEmployee(nome){
     //this.props.onDelete(name);
   }
   render() {
-    let employeeItems;
-    if(this.props.employees){
-      employeeItems = this.props.employees.map((employee, index) => {
-        //console.log(employee);
-        return (
-        <EmployeeItem onDelete={this.deleteEmployee.bind(this)} key={index} employee={employee}/>
-        )
-      })
-    }
-
-    //console.log(this.props)
-
+    //console.log(this.state.employees);
     return (
       <div className="Employees">
         <div id="list" class="row">
@@ -31,12 +20,20 @@ class Employees extends Component {
                 </tr>
               </thead>
               <tbody>
-              {employeeItems}
+                <tr className="EmployeeItem">
+                  <td>{/*this.props.employee.nome*/}</td>
+                  <td>{/*this.props.employee.email*/}</td>
+                  <td class="actions">
+                    <button type="button" class="btn btn-warning btn-xs">Editar</button>
+                    <button type="button" class="btn btn-danger btn-xs" onClick={this.deleteEmployee}>Excluir</button>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
         </div>
       </div>
+      
     );
   }
 }
