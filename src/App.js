@@ -26,7 +26,7 @@ class App extends Component {
     return (
       <div className="App">
         <AddEmployee AddEmployee={this.handleAddEmployee.bind(this)}/>
-        <Employees employees={this.state.employees} onDelete={this.handleDeleteEmployee.bind(this, index)}/>
+        <Employees employees={this.state.employees} onDelete={this.handleDeleteEmployee.bind(this)}/>
       </div>
     );
   }
