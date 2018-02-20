@@ -18,7 +18,7 @@ class EmployeeItem extends Component {
           <td>{this.props.employee.email}</td>
           <td class="actions">
             <button type="button" class="btn btn-warning btn-xs">Editar</button>
-            <button type="button" class="btn btn-danger btn-xs" onClick={this.deleteEmployee}>Excluir</button>
+            <button type="button" class="btn btn-danger btn-xs" onClick={this.deleteEmployee(null, index)}>Excluir</button>
           </td>
         </tr>
     );

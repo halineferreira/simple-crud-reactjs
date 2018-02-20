@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-//import logo from './logo.svg';
 import './App.css';
 //import Employees from './Components/Employees'
 //import AddEmployee from './Components/AddEmployee'
 import data from './employees.json'
 import { Button, Modal, ModalHeader, Fade, utils } from 'react-bootstrap'
 import { Modal as ReactOverlayModal } from 'react-overlays'
-
+let pos;
 
 class App extends Component {
   constructor(props, context){
@@ -23,7 +22,7 @@ class App extends Component {
 
     addEmployee(e){
       e.preventDefault();
-      if (this.refs.nome.value === ''|| this.refs.nome.email === '')
+      if (this.refs.nome.value === ''|| this.refs.email.value === '')
           alert('Preencha todos os campos');
       else {
           
@@ -36,20 +35,38 @@ class App extends Component {
   
           this.setState({ employees: employees});
           this.refs.addEmployeeForm.reset();
-  
-          console.log(this.state.employees);
       }
     }
-     deleteEmployee(index) {
-        console.log(index);
 
+    carregarEmployee(i){
+      this.refs.updateEmployeeForm.newNome.value = this.state.employees[i].nome;
+      this.refs.updateEmployeeForm.newEmail.value = this.state.employees[i].email;
+      pos = i;
+    }
+
+    updateEmployee(e){
+      if (this.refs.updateEmployeeForm.newNome.value === ''|| this.refs.updateEmployeeForm.newEmail.value === '')
+          alert('Preencha todos os campos');
+      else {
+          let employees = this.state.employees;
+
+          employees[pos].nome = this.refs.updateEmployeeForm.newNome.value;
+          employees[pos].email = this.refs.updateEmployeeForm.newEmail.value;
+
+          this.setState({ employees: employees});
+          this.refs.updateEmployeeForm.reset();
+      }
+      e.preventDefault();
+    }
+
+    deleteEmployee(index) {
         let employees = this.state.employees;
 
         employees.splice(index, 1);
         this.setState({ employees });
 
      };
-     handleClose() {
+    handleClose() {
       this.setState({ show: false });
     }
   
@@ -64,26 +81,12 @@ class App extends Component {
 
     return (
       <div className="App">
-      <Button bsStyle="primary" bsSize="large" onClick={this.handleShow}>
-          Launch demo modal
-        </Button>
+      <form ref="updateEmployeeForm" onSubmit={this.updateEmployee.bind(this)}>
+        <input type="text" ref="newNome" className="form-control" name="newNome" id="newNome" placeholder="Nome"/>
+        <input type="text" ref="newEmail" className="form-control" name="newEmail" id="newEmail" placeholder="Email"/>
+        <button type="submit" className="btn btn-primary">Salvar</button>
+      </form>
 
-        <Modal show={this.state.show} onHide={this.handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <p>
-              Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-              dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-              ac consectetur ac, vestibulum at eros.
-            </p>
-          
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this.handleClose}>Close</Button>
-          </Modal.Footer>
-        </Modal>
         <h1>Cadastro de Funcionários</h1>
         <form ref="addEmployeeForm" onSubmit={this.addEmployee.bind(this)}>
             <div className="row">
@@ -116,7 +119,7 @@ class App extends Component {
                     <td>{employee.nome}</td>
                     <td>{employee.email}</td>
                     <td className="actions">
-                      <button type="button" className="btn btn-warning btn-xs">Editar</button>
+                      <button type="button" className="btn btn-warning btn-xs" onClick={() => this.carregarEmployee(index)}>Editar</button>
                       <button type="button" className="btn btn-danger btn-xs" onClick={() => this.deleteEmployee(index)}>Excluir</button>
                     </td>
                   </tr>
