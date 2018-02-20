@@ -7,69 +7,66 @@ let pos;
 class App extends Component {
   constructor(props, context){
     super(props, context);
-    this.handleShow = this.handleShow.bind(this);
-    this.handleClose = this.handleClose.bind(this);
     this.state= {
-      employees: data,
-      show: false
+      employees: data
     }
     this.addEmployee = this.addEmployee.bind(this);
     this.deleteEmployee = this.deleteEmployee.bind(this);
   }
 
-    addEmployee(e){
-      e.preventDefault();
-      if (this.refs.nome.value === ''|| this.refs.email.value === '')
-          alert('Preencha todos os campos');
-      else {
-          
-          let nome = this.refs.nome.value;
-          let email =  this.refs.email.value;
-          let newEmployee =  { nome, email};
-          let employees = this.state.employees;
-  
-          employees.push(newEmployee);
-  
-          this.setState({ employees: employees});
-          this.refs.addEmployeeForm.reset();
-      }
-    }
-
-    carregarEmployee(i){
-      this.refs.updateEmployeeForm.newNome.value = this.state.employees[i].nome;
-      this.refs.updateEmployeeForm.newEmail.value = this.state.employees[i].email;
-      pos = i;
-    }
-
-    updateEmployee(e){
-      if (this.refs.updateEmployeeForm.newNome.value === ''|| this.refs.updateEmployeeForm.newEmail.value === '')
-          alert('Preencha todos os campos');
-      else {
-          let employees = this.state.employees;
-
-          employees[pos].nome = this.refs.updateEmployeeForm.newNome.value;
-          employees[pos].email = this.refs.updateEmployeeForm.newEmail.value;
-
-          this.setState({ employees: employees});
-          this.refs.updateEmployeeForm.reset();
-      }
-      e.preventDefault();
-    }
-
-    deleteEmployee(index) {
+  addEmployee(e){
+    e.preventDefault();
+    if (this.refs.nome.value === ''|| this.refs.email.value === '')
+        alert('Preencha todos os campos');
+    else {
+        
+        let nome = this.refs.nome.value;
+        let email =  this.refs.email.value;
+        let newEmployee =  { nome, email};
         let employees = this.state.employees;
 
-        employees.splice(index, 1);
-        this.setState({ employees });
+        employees.push(newEmployee);
 
-     };
-    handleClose() {
-      this.setState({ show: false });
+        this.setState({ employees: employees});
+        this.refs.addEmployeeForm.reset();
     }
-  
-    handleShow() {
-      this.setState({ show: true });
+  }
+
+  carregarEmployee(i){
+    this.refs.updateEmployeeForm.newNome.value = this.state.employees[i].nome;
+    this.refs.updateEmployeeForm.newEmail.value = this.state.employees[i].email;
+    pos = i;
+  }
+
+  updateEmployee(e){
+    if (this.refs.updateEmployeeForm.newNome.value === ''|| this.refs.updateEmployeeForm.newEmail.value === '')
+        alert('Preencha todos os campos');
+    else {
+        let employees = this.state.employees;
+
+        employees[pos].nome = this.refs.updateEmployeeForm.newNome.value;
+        employees[pos].email = this.refs.updateEmployeeForm.newEmail.value;
+
+        this.setState({ employees: employees});
+        this.refs.updateEmployeeForm.reset();
     }
+    e.preventDefault();
+  }
+
+  deleteEmployee(index) {
+      let employees = this.state.employees;
+
+      employees.splice(index, 1);
+      this.setState({ employees });
+
+    };
+  handleClose() {
+    this.setState({ show: false });
+  }
+
+  handleShow() {
+    this.setState({ show: true });
+  }
 
   render() {
     return (
@@ -113,7 +110,7 @@ class App extends Component {
                           <td>{employee.nome}</td>
                           <td>{employee.email}</td>
                           <td className="actions">
-                            <button type="button" className="btn btn-warning btn-xs" onClick={() => this.carregarEmployee(index)}>Editar</button>
+                            <button type="button" className="btn btn-warning btn-xs" onClick={() => this.carregarEmployee(index)}>Editar</button> 
                             <button type="button" className="btn btn-danger btn-xs" onClick={() => this.deleteEmployee(index)}>Excluir</button>
                           </td>
                         </tr>
