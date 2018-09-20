@@ -65,7 +65,8 @@ class App extends Component {
         employees.splice(index, 1);
         this.setState({ employees });
 
-     };
+    }
+
     handleClose() {
       this.setState({ show: false });
     }
@@ -75,19 +76,38 @@ class App extends Component {
     }
 
   render() {
-
-  
     
-
     return (
-      <div className="App">
-      <form ref="updateEmployeeForm" onSubmit={this.updateEmployee.bind(this)}>
-        <input type="text" ref="newNome" className="form-control" name="newNome" id="newNome" placeholder="Nome"/>
-        <input type="text" ref="newEmail" className="form-control" name="newEmail" id="newEmail" placeholder="Email"/>
-        <button type="submit" className="btn btn-primary">Salvar</button>
-      </form>
 
-        <h1>Cadastro de Funcionários</h1>
+
+      <div className="App">
+        <div className="static-modal">
+          <Modal.Dialog show={this.state.show}
+            onClose={this.handleClose}
+            container={this}
+            aria-labelledby="contained-modal-title">
+            <Modal.Header>
+              <Modal.Title>Editar contato</Modal.Title>
+            </Modal.Header>
+
+            <Modal.Body>
+              <form ref="updateEmployeeForm" onSubmit={this.updateEmployee.bind(this)}>
+                <input type="text" ref="newNome" className="form-control" name="newNome" id="newNome" placeholder="Nome"/>
+                <input type="text" ref="newEmail" className="form-control" name="newEmail" id="newEmail" placeholder="Email"/>
+                {/* <button type="submit" className="btn btn-primary">Salvar</button> */}
+              </form>
+            </Modal.Body>
+
+            <Modal.Footer>
+              <Button onClick={this.handleClose}>Cancelar</Button>
+              <Button bsStyle="primary">Salvar</Button>
+            </Modal.Footer>
+          </Modal.Dialog>
+        </div>
+
+      
+
+        <h1>Contatos</h1>
         <form ref="addEmployeeForm" onSubmit={this.addEmployee.bind(this)}>
             <div className="row">
                 <div className="col">
